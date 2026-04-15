@@ -1,95 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Fork Enthusiasts Club</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #f0f8ff, #e6e6fa);
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fork Enthusiasts</title>
 
-        /* Bubble title style */
-        .bubble-title {
-            font-size: 60px;
-            font-weight: bold;
-            color: white;
-            margin-top: 60px;
-            text-shadow:
-                3px 3px 0 #ff69b4,
-                6px 6px 0 #ff1493,
-                9px 9px 0 #c71585;
-        }
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
 
-        .subtitle {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 40px;
-        }
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: #f5f7fa;
+        color: #333;
+    }
 
-        .content {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
+    header {
+        height: 100vh;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
 
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+    .bubble-title {
+        font-size: 55px;
+        font-weight: bold;
+        text-shadow:
+            3px 3px 0 rgba(0,0,0,0.2),
+            6px 6px 10px rgba(0,0,0,0.2);
+    }
 
-        .fork-img {
-            width: 120px;
-            margin: 20px 0;
-        }
+    .tagline {
+        font-size: 20px;
+        margin-top: 15px;
+        opacity: 0.9;
+    }
 
-        footer {
-            margin-top: 40px;
-            padding: 20px;
-            background: #222;
-            color: white;
-        }
-    </style>
+    .scroll-down {
+        margin-top: 40px;
+        font-size: 18px;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
+    }
+
+    section {
+        padding: 80px 20px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #2575fc;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        margin: 20px 0;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: transform 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px;
+        background: #222;
+        color: white;
+    }
+</style>
 </head>
+
 <body>
 
-    <div class="bubble-title">
-        James uses this fork to eat his goy slop
+<header>
+    <div class="bubble-title">Fork Enthusiasts</div>
+    <div class="tagline">We’re in it for the love of the game 🍴</div>
+    <div class="scroll-down">↓ Scroll Down ↓</div>
+</header>
+
+<section id="about">
+    <h2>About Us</h2>
+    <div class="card">
+        <p>
+            We are a passionate community dedicated to one of humanity’s greatest tools: the fork.
+            Whether it's fine dining or casual meals, forks are at the heart of it all.
+        </p>
+        <p>
+            This site exists purely for appreciation, curiosity, and the love of the game.
+        </p>
     </div>
+</section>
 
-    <div class="subtitle">
-        Welcome to the ultimate fork enthusiast website 🥄
+<section id="history">
+    <h2>History of the Fork</h2>
+    <div class="card">
+        <p>
+            Forks date back to ancient civilizations, but they became widely popular in Europe
+            during the Middle Ages. Originally seen as unusual, they eventually became a standard
+            part of dining culture.
+        </p>
     </div>
+</section>
 
-    <div class="content">
-
-        <div class="card">
-            <h2>Why Forks?</h2>
-            <p>Forks are one of the most versatile utensils ever invented. From pasta to salad, they do it all.</p>
-        </div>
-
-        <div class="card">
-            <h2>Featured Fork</h2>
-            <img class="fork-img" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Fork.jpg" alt="Fork">
-            <p>This elegant fork is perfect for all your dining needs.</p>
-        </div>
-
-        <div class="card">
-            <h2>Join the Club</h2>
-            <p>Love forks? Join our community and share your favorite utensils!</p>
-            <button onclick="alert('Welcome to the Fork Club!')">Join Now</button>
-        </div>
-
+<section id="types">
+    <h2>Types of Forks</h2>
+    <div class="card">
+        <ul>
+            <li>🍝 Dinner Fork</li>
+            <li>🥗 Salad Fork</li>
+            <li>🍰 Dessert Fork</li>
+            <li>🍤 Seafood Fork</li>
+            <li>🥩 Carving Fork</li>
+        </ul>
     </div>
+</section>
 
-    <footer>
-        © 2026 Fork Enthusiasts Club
-    </footer>
+<section id="materials">
+    <h2>Common Fork Materials</h2>
+    <div class="card">
+        <ul>
+            <li><strong>Metal:</strong> Durable and reusable (most common)</li>
+            <li><strong>Plastic:</strong> Lightweight and disposable</li>
+            <li><strong>Wood:</strong> Eco-friendly and biodegradable</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    © 2026 Fork Enthusiasts — Built for the love of forks
+</footer>
 
 </body>
 </html>
