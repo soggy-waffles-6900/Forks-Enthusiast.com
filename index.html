@@ -6,219 +6,226 @@
   <title>Fork Enthusiasts</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; color: #1a1a1a; }
-    .hero {
-      padding: 80px 24px 60px;
-      text-align: center;
-      border-bottom: 1px solid #e5e5e5;
-      background: #fff;
-    }
-    .hero-eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; margin-bottom: 16px; }
-    .hero-title { font-size: 44px; font-weight: 500; line-height: 1.15; margin-bottom: 16px; }
-    .hero-sub { font-size: 17px; color: #666; line-height: 1.6; max-width: 480px; margin: 0 auto 32px; }
-    .hero-icon { width: 56px; opacity: 0.4; margin: 0 auto; display: block; }
-    nav {
-      display: flex; border-bottom: 1px solid #e5e5e5;
-      background: #fff; position: sticky; top: 0; z-index: 10; overflow-x: auto;
-    }
-    nav a { padding: 14px 20px; font-size: 13px; color: #888; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; }
-    nav a:hover { color: #1a1a1a; }
-    .section { padding: 56px 24px; max-width: 780px; margin: 0 auto; border-bottom: 1px solid #e5e5e5; }
-    .section:last-of-type { border-bottom: none; }
-    .section-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
-    h2 { font-size: 26px; font-weight: 500; margin-bottom: 20px; }
-    p { font-size: 15px; line-height: 1.75; color: #555; margin-bottom: 14px; }
+    body { font-family: 'Segoe UI', sans-serif; background: #111; color: #e0e0e0; min-height: 100vh; }
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+    nav { background: #0d0d0d; border-bottom: 1px solid #222; display: flex; overflow-x: auto; padding: 0 8px; }
+    nav button { padding: 14px 18px; font-size: 13px; color: #777; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; font-family: inherit; transition: color 0.15s; }
+    nav button:hover { color: #ccc; }
+    nav button.active { color: #e0e0e0; border-bottom-color: #e0e0e0; }
+    .hero { padding: 90px 28px 70px; text-align: center; background: #0d0d0d; border-bottom: 1px solid #222; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #555; margin-bottom: 16px; }
+    .hero-title { font-size: 46px; font-weight: 400; color: #e8e8e8; margin-bottom: 16px; letter-spacing: -0.5px; }
+    .hero-sub { font-size: 16px; color: #666; line-height: 1.7; max-width: 440px; margin: 0 auto; }
+    .section { padding: 60px 28px; max-width: 780px; margin: 0 auto; }
+    .section + .section { border-top: 1px solid #1e1e1e; }
+    .sec-label { font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase; color: #444; margin-bottom: 12px; }
+    h2 { font-size: 24px; font-weight: 400; color: #ddd; margin-bottom: 18px; }
+    h3 { font-size: 15px; font-weight: 500; color: #ccc; margin-bottom: 6px; }
+    p { font-size: 15px; line-height: 1.75; color: #888; margin-bottom: 14px; }
     p:last-child { margin-bottom: 0; }
+    em { color: #aaa; font-style: italic; }
+    .img-wide { width: 100%; aspect-ratio: 16/7; object-fit: cover; border-radius: 6px; border: 1px solid #222; margin: 24px 0; display: block; background: #1a1a1a; }
     .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
-    .photo-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; border: 1px solid #e5e5e5; display: block; }
-    .photo-caption { font-size: 12px; color: #aaa; text-align: center; margin-top: 6px; }
-    .wide-photo { width: 100%; aspect-ratio: 16/7; object-fit: cover; border-radius: 8px; border: 1px solid #e5e5e5; margin: 24px 0; display: block; }
-    .timeline { position: relative; padding-left: 20px; border-left: 1px solid #e5e5e5; margin-top: 24px; }
-    .timeline-item { margin-bottom: 32px; position: relative; }
-    .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 7px; height: 7px; border-radius: 50%; background: #bbb; }
-    .timeline-year { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: #aaa; margin-bottom: 4px; }
-    .timeline-title { font-size: 15px; font-weight: 500; margin-bottom: 4px; color: #1a1a1a; }
-    .timeline-desc { font-size: 14px; color: #666; line-height: 1.6; }
-    .fork-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px; }
-    .fork-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 18px; }
-    .fork-card-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; color: #1a1a1a; }
-    .fork-card-desc { font-size: 13px; color: #666; line-height: 1.55; }
-    .material-row { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid #e5e5e5; }
-    .material-row:last-child { border-bottom: none; }
-    .material-label { font-size: 14px; font-weight: 500; min-width: 80px; color: #1a1a1a; }
-    .material-desc { font-size: 14px; color: #666; line-height: 1.55; }
-    footer { padding: 32px 24px; text-align: center; font-size: 13px; color: #aaa; background: #fff; border-top: 1px solid #e5e5e5; }
-    @media (max-width: 540px) {
-      .hero-title { font-size: 30px; }
-      .fork-grid { grid-template-columns: 1fr; }
+    .photo-grid figure { margin: 0; }
+    .photo-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; border: 1px solid #222; display: block; background: #1a1a1a; }
+    figcaption { font-size: 11px; color: #444; text-align: center; margin-top: 6px; }
+    .timeline { padding-left: 20px; border-left: 1px solid #252525; margin-top: 24px; }
+    .titem { margin-bottom: 30px; position: relative; }
+    .titem::before { content: ''; position: absolute; left: -24px; top: 7px; width: 6px; height: 6px; border-radius: 50%; background: #444; }
+    .tyear { font-size: 11px; letter-spacing: 0.08em; color: #444; margin-bottom: 3px; }
+    .ttitle { font-size: 15px; font-weight: 500; color: #ccc; margin-bottom: 4px; }
+    .tdesc { font-size: 14px; color: #777; line-height: 1.6; }
+    .fork-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+    .fcard { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 16px; }
+    .fcard h3 { font-size: 13px; font-weight: 500; color: #bbb; margin-bottom: 5px; }
+    .fcard p { font-size: 13px; color: #666; margin: 0; }
+    .mat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+    .mat-card { background: #141414; border: 1px solid #222; border-radius: 10px; overflow: hidden; }
+    .mat-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #1a1a1a; border-bottom: 1px solid #222; }
+    .mat-card-body { padding: 14px; }
+    .mat-card-body h3 { font-size: 13px; font-weight: 500; color: #bbb; margin-bottom: 4px; }
+    .mat-card-body p { font-size: 13px; color: #666; margin: 0; }
+    .fact-block { background: #141414; border: 1px solid #1e1e1e; border-radius: 10px; padding: 20px; margin-bottom: 10px; }
+    footer { text-align: center; padding: 28px; font-size: 12px; color: #333; background: #0d0d0d; border-top: 1px solid #1a1a1a; margin-top: 40px; }
+    @media (max-width: 520px) {
+      .fork-grid, .mat-grid { grid-template-columns: 1fr; }
       .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-title { font-size: 32px; }
     }
   </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-eyebrow">Est. 2026</div>
-  <div class="hero-title">Fork Enthusiasts</div>
-  <p class="hero-sub">A quiet appreciation for one of humanity's most elegant and overlooked tools.</p>
-  <svg class="hero-icon" viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="18" y="35" width="4" height="40" rx="2" fill="#1a1a1a" opacity="0.3"/>
-    <rect x="18" y="30" width="4" height="12" rx="1" fill="#1a1a1a" opacity="0.5"/>
-    <rect x="10" y="5" width="3" height="28" rx="1.5" fill="#1a1a1a" opacity="0.6"/>
-    <rect x="17" y="5" width="3" height="28" rx="1.5" fill="#1a1a1a" opacity="0.6"/>
-    <rect x="24" y="5" width="3" height="28" rx="1.5" fill="#1a1a1a" opacity="0.6"/>
-  </svg>
-</div>
-
-<nav>
-  <a href="#history">History</a>
-  <a href="#types">Types</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#materials">Materials</a>
-  <a href="#facts">Facts</a>
+<nav id="nav">
+  <button class="active" onclick="show('home',this)">Home</button>
+  <button onclick="show('history',this)">History</button>
+  <button onclick="show('types',this)">Types</button>
+  <button onclick="show('gallery',this)">Gallery</button>
+  <button onclick="show('materials',this)">Materials</button>
+  <button onclick="show('facts',this)">Facts</button>
 </nav>
 
-<div class="section" id="history">
-  <div class="section-label">01 — History</div>
-  <h2>A brief history of the fork</h2>
-  <p>The fork is older than most people assume. Its story spans millennia, crossing empires and dining tables, shifting from a tool of the elite to an object every household takes for granted.</p>
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="eyebrow">Est. 2026</div>
+    <div class="hero-title">Fork Enthusiasts</div>
+    <p class="hero-sub">A quiet appreciation for one of humanity's most elegant and overlooked tools.</p>
+  </div>
+  <div class="section">
+    <div class="sec-label">Welcome</div>
+    <h2>What is this place</h2>
+    <p>This is a site for people who think forks deserve more credit. Not knives, not spoons — forks. The tined, the tined, and the deeply tined.</p>
+    <p>Use the navigation above to explore the history, typology, materials, and many strange facts that surround one of the oldest dining tools in the world.</p>
+  </div>
+  <footer>Fork Enthusiasts — est. 2026</footer>
+</div>
 
-  <img class="wide-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Fork.jpg/1280px-Fork.jpg" alt="Classic dinner fork">
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-year">2400 BCE</div>
-      <div class="timeline-title">Ancient origins</div>
-      <div class="timeline-desc">Two-pronged forks appear in ancient China and Egypt, used primarily for cooking and serving meat — not eating.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-year">~400 CE</div>
-      <div class="timeline-title">Byzantine refinement</div>
-      <div class="timeline-desc">Byzantine royalty used small gold forks for sticky fruit. These were ornamental as much as functional, symbols of refinement and wealth.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-year">1004 CE</div>
-      <div class="timeline-title">Scandalous in Venice</div>
-      <div class="timeline-desc">A Byzantine princess introduced a two-pronged golden fork to Venice on her wedding day. The clergy denounced it as an insult to God's natural instruments — the fingers.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-year">1600s</div>
-      <div class="timeline-title">Italy leads the way</div>
-      <div class="timeline-desc">Italy became the first European country to normalise fork use at the table. Travellers returning from Italy introduced the habit — and the mockery — to England and France.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-year">1700s</div>
-      <div class="timeline-title">Four tines become standard</div>
-      <div class="timeline-desc">The four-tine design emerged as the dominant form. Curved tines, better suited to scooping food, replaced the earlier straight-pronged varieties.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-year">1800s</div>
-      <div class="timeline-title">Industrial democratisation</div>
-      <div class="timeline-desc">Mass manufacturing made forks available to all classes. Specialised variants — salad forks, fish forks, dessert forks — proliferated as dining culture formalised.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-year">Today</div>
-      <div class="timeline-title">Universal and ubiquitous</div>
-      <div class="timeline-desc">Roughly 150 billion plastic forks are used each year globally. Stainless steel remains the standard for reusable cutlery in most of the world.</div>
+<!-- HISTORY -->
+<div id="history" class="page">
+  <div class="section">
+    <div class="sec-label">01 — History</div>
+    <h2>A brief history of the fork</h2>
+    <p>The fork is older than most people assume. Its story spans millennia, crossing empires and dining tables — shifting from a tool of the elite to an object every household takes for granted.</p>
+    <img class="img-wide" src="https://images.unsplash.com/photo-1578898887932-dce23a595ad4?w=1200&q=80" alt="Silverware on a dark surface">
+    <div class="timeline">
+      <div class="titem"><div class="tyear">2400 BCE</div><div class="ttitle">Ancient origins</div><div class="tdesc">Two-pronged forks appear in ancient China and Egypt, used for cooking and serving meat — not for eating.</div></div>
+      <div class="titem"><div class="tyear">~400 CE</div><div class="ttitle">Byzantine refinement</div><div class="tdesc">Byzantine royalty used small gold forks for sticky fruit. Ornamental as much as functional — symbols of wealth and status.</div></div>
+      <div class="titem"><div class="tyear">1004 CE</div><div class="ttitle">Scandalous in Venice</div><div class="tdesc">A Byzantine princess introduced a two-pronged golden fork to Venice on her wedding day. The clergy denounced it as an insult to God's natural instruments — the fingers.</div></div>
+      <div class="titem"><div class="tyear">1600s</div><div class="ttitle">Italy leads the way</div><div class="tdesc">Italy became the first European country to normalise fork use at the table. Travellers returning from Italy spread the habit — and the mockery — to England and France.</div></div>
+      <div class="titem"><div class="tyear">1611</div><div class="ttitle">Thomas Coryat, fork evangelist</div><div class="tdesc">English traveller Thomas Coryat returned from Italy using a fork. He was ridiculed across England. He didn't care.</div></div>
+      <div class="titem"><div class="tyear">1700s</div><div class="ttitle">Four tines become standard</div><div class="tdesc">The four-tine design emerged as the dominant form. Curved tines replaced straight ones — better for scooping.</div></div>
+      <div class="titem"><div class="tyear">1800s</div><div class="ttitle">Industrial democratisation</div><div class="tdesc">Mass manufacturing made forks affordable for all classes. Specialised variants proliferated: salad, fish, dessert, oyster.</div></div>
+      <div class="titem"><div class="tyear">Today</div><div class="ttitle">Universal and ubiquitous</div><div class="tdesc">Roughly 150 billion plastic forks are discarded each year globally. Stainless steel remains the standard for reusable cutlery.</div></div>
     </div>
   </div>
+  <footer>Fork Enthusiasts — est. 2026</footer>
 </div>
 
-<div class="section" id="types">
-  <div class="section-label">02 — Types</div>
-  <h2>A fork for every occasion</h2>
-  <p>The proliferation of fork types in the 19th century was staggering. Formal Victorian table settings could include up to a dozen different forks per place setting, each designed for a specific course or food.</p>
-  <div class="fork-grid">
-    <div class="fork-card">
-      <div class="fork-card-title">Dinner fork</div>
-      <div class="fork-card-desc">The largest and most versatile. Four tines, broad shoulders — the workhorse of the table.</div>
-    </div>
-    <div class="fork-card">
-      <div class="fork-card-title">Salad fork</div>
-      <div class="fork-card-desc">Slightly shorter with a wider left tine, sometimes with a notch — designed to cut through leafy greens and light ingredients.</div>
-    </div>
-    <div class="fork-card">
-      <div class="fork-card-title">Dessert fork</div>
-      <div class="fork-card-desc">Petite and often three-tined. Narrow enough for pastry, sturdy enough for dense cakes. A pleasing fork.</div>
-    </div>
-    <div class="fork-card">
-      <div class="fork-card-title">Fish fork</div>
-      <div class="fork-card-desc">Broad, flat tines to gently separate delicate fillets without tearing. Often features a notch for removing bones.</div>
-    </div>
-    <div class="fork-card">
-      <div class="fork-card-title">Oyster fork</div>
-      <div class="fork-card-desc">Three short, sturdy tines with a slight curve. One of the few forks placed to the right of the plate — beside the spoons.</div>
-    </div>
-    <div class="fork-card">
-      <div class="fork-card-title">Carving fork</div>
-      <div class="fork-card-desc">Long, two-pronged, built to anchor large cuts of meat while carving. More tool than utensil — closer to a weapon than a fork.</div>
+<!-- TYPES -->
+<div id="types" class="page">
+  <div class="section">
+    <div class="sec-label">02 — Types</div>
+    <h2>A fork for every occasion</h2>
+    <p>Victorian formal table settings could include up to a dozen different forks per place setting. Each was designed for a specific course, food, or social ritual.</p>
+    <div class="fork-grid">
+      <div class="fcard"><h3>Dinner fork</h3><p>The largest and most versatile. Four tines, broad — the workhorse of the table.</p></div>
+      <div class="fcard"><h3>Salad fork</h3><p>Shorter, with a wider left tine and sometimes a notch — designed to cut through leafy greens.</p></div>
+      <div class="fcard"><h3>Dessert fork</h3><p>Petite and often three-tined. Narrow enough for pastry, sturdy enough for dense cake.</p></div>
+      <div class="fcard"><h3>Fish fork</h3><p>Broad, flat tines to gently separate delicate fillets. Often features a notch for removing bones.</p></div>
+      <div class="fcard"><h3>Oyster fork</h3><p>Three short, sturdy tines with a slight curve. One of the few forks placed to the right of the plate.</p></div>
+      <div class="fcard"><h3>Carving fork</h3><p>Long, two-pronged. Anchors large cuts of meat while carving. More tool than utensil.</p></div>
+      <div class="fcard"><h3>Cocktail fork</h3><p>Tiny three-tined fork used for shrimp, olives, and small appetisers. Sometimes called a seafood fork.</p></div>
+      <div class="fcard"><h3>Fondue fork</h3><p>Long-handled with two sharp tines for spearing and dipping bread or meat into hot cheese or oil.</p></div>
+      <div class="fcard"><h3>Pickle fork</h3><p>Two very long, sharp tines for fishing pickles, olives, or garnishes out of jars and narrow containers.</p></div>
+      <div class="fcard"><h3>Pastry fork</h3><p>Three tines with a wider, blade-like outer edge — designed to cut through pastry without a knife.</p></div>
+      <div class="fcard"><h3>Serving fork</h3><p>Oversized two- or three-tined fork used to transfer food from a serving dish to a plate.</p></div>
+      <div class="fcard"><h3>Chip fork</h3><p>Small disposable wooden or plastic fork used for chips and fried food. Humble but essential.</p></div>
     </div>
   </div>
+  <footer>Fork Enthusiasts — est. 2026</footer>
 </div>
 
-<div class="section" id="gallery">
-  <div class="section-label">03 — Gallery</div>
-  <h2>Forks in the world</h2>
-  <p>From antique silver to mass-produced steel, the fork appears everywhere once you start looking.</p>
-  <div class="photo-grid">
-    <div>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Fork.jpg/400px-Fork.jpg" alt="Steel dinner fork">
-      <div class="photo-caption">Stainless steel dinner fork</div>
-    </div>
-    <div>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Dessert_fork.jpg/400px-Dessert_fork.jpg" alt="Dessert fork">
-      <div class="photo-caption">Dessert fork</div>
-    </div>
-    <div>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Salad_fork.jpg/400px-Salad_fork.jpg" alt="Salad fork">
-      <div class="photo-caption">Salad fork</div>
+<!-- GALLERY -->
+<div id="gallery" class="page">
+  <div class="section">
+    <div class="sec-label">03 — Gallery</div>
+    <h2>Forks in the world</h2>
+    <p>From antique silver to mass-produced steel, the fork appears everywhere once you start looking.</p>
+    <img class="img-wide" src="https://images.unsplash.com/photo-1611791484670-ce19b801d192?w=1200&q=80" alt="Cutlery laid out on a table">
+    <div class="photo-grid">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1611791484670-ce19b801d192?w=500&q=80" alt="Fork and knife set">
+        <figcaption>Place setting</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Silver cutlery">
+        <figcaption>Silver cutlery</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80" alt="Fork on a plate">
+        <figcaption>Fork on plate</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1578898887932-dce23a595ad4?w=500&q=80" alt="Dark silverware">
+        <figcaption>Dark silverware</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80" alt="Dining table with cutlery">
+        <figcaption>Dining setup</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80" alt="Restaurant table setting">
+        <figcaption>Restaurant setting</figcaption>
+      </figure>
     </div>
   </div>
-  <img class="wide-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Silverware_fork_spoon_knife.jpg/1280px-Silverware_fork_spoon_knife.jpg" alt="Silver cutlery set">
-  <p style="margin-top: 0;">A classic silverware setting — the fork always placed to the left of the plate.</p>
+  <footer>Fork Enthusiasts — est. 2026</footer>
 </div>
 
-<div class="section" id="materials">
-  <div class="section-label">04 — Materials</div>
-  <h2>What forks are made of</h2>
-  <p>Material determines weight, feel, durability, and how long a fork lasts. The choices have expanded significantly in the modern era.</p>
-  <div style="margin-top: 20px;">
-    <div class="material-row">
-      <div class="material-label">Stainless steel</div>
-      <div class="material-desc">The contemporary standard. Resistant to corrosion, dishwasher-safe, affordable. Most households own forks that will outlast them.</div>
-    </div>
-    <div class="material-row">
-      <div class="material-label">Silver</div>
-      <div class="material-desc">Sterling silver forks were markers of wealth for centuries. They tarnish over time and require polishing — but they age beautifully.</div>
-    </div>
-    <div class="material-row">
-      <div class="material-label">Bamboo</div>
-      <div class="material-desc">A renewable, biodegradable alternative growing in popularity. Lighter than metal, with a natural warmth that plastic can't replicate.</div>
-    </div>
-    <div class="material-row">
-      <div class="material-label">Plastic</div>
-      <div class="material-desc">Cheap, mass-produced, and largely single-use. Convenient but ecologically costly — a significant global waste problem.</div>
-    </div>
-    <div class="material-row">
-      <div class="material-label">Wood</div>
-      <div class="material-desc">Traditional and tactile. Prone to absorbing flavours and cracking over time, but beloved in artisan and craft contexts.</div>
+<!-- MATERIALS -->
+<div id="materials" class="page">
+  <div class="section">
+    <div class="sec-label">04 — Materials</div>
+    <h2>What forks are made of</h2>
+    <p>Material determines weight, feel, durability, and lifespan. The right material also changes how a fork feels in the hand — and against the teeth.</p>
+    <div class="mat-grid">
+      <div class="mat-card">
+        <img src="https://images.unsplash.com/photo-1611791484670-ce19b801d192?w=600&q=80" alt="Stainless steel fork">
+        <div class="mat-card-body"><h3>Stainless steel</h3><p>The modern standard. Corrosion-resistant, dishwasher-safe, affordable. Most households own forks that will outlast them.</p></div>
+      </div>
+      <div class="mat-card">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Silver fork">
+        <div class="mat-card-body"><h3>Silver</h3><p>Sterling silver forks were a marker of wealth for centuries. They tarnish slowly and require polishing — but they age beautifully.</p></div>
+      </div>
+      <div class="mat-card">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80" alt="Wooden utensils">
+        <div class="mat-card-body"><h3>Wood</h3><p>Traditional and warm to hold. Prone to absorbing flavours over time, but beloved in craft and artisan contexts.</p></div>
+      </div>
+      <div class="mat-card">
+        <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=600&q=80" alt="Natural materials">
+        <div class="mat-card-body"><h3>Bamboo</h3><p>Renewable and biodegradable. Lighter than metal, with a natural warmth that plastic cannot replicate.</p></div>
+      </div>
+      <div class="mat-card">
+        <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600&q=80" alt="Plastic cutlery">
+        <div class="mat-card-body"><h3>Plastic</h3><p>Cheap and ubiquitous. Roughly 150 billion plastic forks are discarded globally each year — a significant waste problem.</p></div>
+      </div>
+      <div class="mat-card">
+        <img src="https://images.unsplash.com/photo-1578898887932-dce23a595ad4?w=600&q=80" alt="Titanium cutlery">
+        <div class="mat-card-body"><h3>Titanium</h3><p>Lightweight, hypoallergenic, and extremely durable. Popular with outdoor and ultralight communities.</p></div>
+      </div>
     </div>
   </div>
+  <footer>Fork Enthusiasts — est. 2026</footer>
 </div>
 
-<div class="section" id="facts">
-  <div class="section-label">05 — Facts</div>
-  <h2>Things worth knowing</h2>
-  <p>The fork accumulates oddities the longer you look at it.</p>
-  <p>The word "fork" comes from the Latin <em>furca</em>, meaning pitchfork. The dining fork was seen as a direct miniaturisation of the agricultural tool.</p>
-  <p>Thomas Coryat, an eccentric English traveller, is credited with popularising the fork in England around 1611 after observing its use in Italy. He was widely mocked for it.</p>
-  <p>In Japan, forks are still considered secondary to chopsticks, and many formal meals won't include one. The fork's dominance is deeply regional.</p>
-  <p>The average person uses about three forks per day if they eat three meals. Over a lifetime, that's roughly 80,000 fork uses — from a single design that's barely changed in 300 years.</p>
+<!-- FACTS -->
+<div id="facts" class="page">
+  <div class="section">
+    <div class="sec-label">05 — Facts</div>
+    <h2>Things worth knowing</h2>
+    <p>The fork accumulates oddities the longer you look at it.</p>
+    <div class="fact-block"><h3>Latin roots</h3><p>The word "fork" comes from the Latin <em>furca</em>, meaning pitchfork. The dining fork was seen as a direct miniaturisation of the agricultural tool.</p></div>
+    <div class="fact-block"><h3>Thomas Coryat's embarrassment</h3><p>English traveller Thomas Coryat brought the fork to England in 1611 after observing its use in Italy. He was widely mocked. He persisted anyway.</p></div>
+    <div class="fact-block"><h3>Regional resistance</h3><p>In Japan, forks are still secondary to chopsticks. Many formal meals won't include one. The fork's dominance is deeply Western and far from universal.</p></div>
+    <div class="fact-block"><h3>80,000 uses in a lifetime</h3><p>The average person uses roughly three forks per day. Over a lifetime, that's about 80,000 fork uses — from a design that's barely changed in 300 years.</p></div>
+    <div class="fact-block"><h3>The wrong side</h3><p>In continental Europe, the fork is held in the left hand throughout a meal. In America, it's transferred to the right after cutting. Both consider the other method strange.</p></div>
+    <div class="fact-block"><h3>Clergy objections</h3><p>When Byzantine princess Maria Argyropoulina brought a golden fork to Venice in 1004, the local clergy condemned it as decadent. When she died of plague two years later, some called it divine punishment.</p></div>
+    <div class="fact-block"><h3>Spork: a failed compromise</h3><p>The spork has existed since the 1870s. Despite over 150 years of trying, it has never replaced either the fork or the spoon. Some things cannot be combined.</p></div>
+  </div>
+  <footer>Fork Enthusiasts — est. 2026</footer>
 </div>
 
-<footer>
-  Fork Enthusiasts — est. 2026
-</footer>
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
 
 </body>
 </html>
